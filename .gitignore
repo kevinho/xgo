@@ -18,6 +18,7 @@
 ### Go Patch ###
 /vendor/
 /Godeps/
+/.idea
 
 ### macOS ###
 # General

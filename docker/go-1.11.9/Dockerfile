@@ -3,7 +3,7 @@
 #
 # Released under the MIT license.
 
-FROM goreng/xgo:base
+FROM registry.cn-hangzhou.aliyuncs.com/youchainhq/xgo:base
 
 LABEL MAINTAINER Péter Szilágyi <peterke@gmail.com>
 

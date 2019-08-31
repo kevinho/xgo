@@ -3,6 +3,6 @@
 #
 # Released under the MIT license.
 
-FROM goreng/xgo:1.11.9
+FROM registry.cn-hangzhou.aliyuncs.com/youchainhq/xgo:1.11.9
 
 LABEL MAINTAINER Péter Szilágyi <peterke@gmail.com>
