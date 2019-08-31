@@ -3,11 +3,10 @@
 #
 # Released under the MIT license.
 
-FROM ubuntu:18.04
+FROM ubuntu:17.10
 
 LABEL MAINTAINER Péter Szilágyi <peterke@gmail.com>
 LABEL MAINTAINER Goren G <yong.gu@qlink.mobi>
-LABEL MAINTAINER kvh <freefacefly@gmail.com>
 
 # Mark the image as xgo enabled to support xgo-in-xgo
 ENV XGO_IN_XGO 1
