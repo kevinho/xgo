@@ -52,7 +52,7 @@ var (
 	crossDeps   = flag.String("deps", "", "CGO dependencies (configure/make based archives)")
 	crossArgs   = flag.String("depsargs", "", "CGO dependency configure arguments")
 	targets     = flag.String("targets", "*/*", "Comma separated targets to build for")
-	proxy       = flag.String("proxy", "", "goproxy env")
+	goProxy     = flag.String("goproxy", "", "goproxy env")
 	dockerImage = flag.String("image", "", "Use custom docker image instead of official distribution")
 )
 
@@ -66,7 +66,7 @@ type ConfigFlags struct {
 	Dependencies string   // CGO dependencies (configure/make based archives)
 	Arguments    string   // CGO dependency configure arguments
 	Targets      []string // Targets to build for
-	Proxy        string   //go proxy
+	GoProxy      string   //go goProxy
 }
 
 // Command line arguments to pass to go build
@@ -173,6 +173,7 @@ func main() {
 		Dependencies: *crossDeps,
 		Arguments:    *crossArgs,
 		Targets:      strings.Split(*targets, ","),
+		GoProxy:      *goProxy,
 	}
 	flags := &BuildFlags{
 		Verbose: *buildVerbose,
@@ -301,7 +302,6 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 		"-e", "DEPS=" + config.Dependencies,
 		"-e", "ARGS=" + config.Arguments,
 		"-e", "OUT=" + config.Prefix,
-		"-e", "GOPROXY=" + config.Proxy,
 		"-e", fmt.Sprintf("FLAG_V=%v", flags.Verbose),
 		"-e", fmt.Sprintf("FLAG_X=%v", flags.Steps),
 		"-e", fmt.Sprintf("FLAG_RACE=%v", flags.Race),
@@ -310,6 +310,11 @@ func compile(image string, config *ConfigFlags, flags *BuildFlags, folder string
 		"-e", fmt.Sprintf("FLAG_BUILDMODE=%s", flags.Mode),
 		"-e", "TARGETS=" + strings.Replace(strings.Join(config.Targets, " "), "*", ".", -1),
 	}
+
+	if config.GoProxy != "" {
+		args = append(args, []string{"-e", "GOPROXY=" + config.GoProxy}...)
+	}
+
 	if usesModules {
 		fmt.Println("Enabled Go module support")
 		args = append(args, []string{"-e", "GO111MODULE=on"}...)
