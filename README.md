@@ -13,5 +13,5 @@ using aliyun registry to hold the images
 # install
 
 ```go
-go get -u github.com/youchainhq/xgo
+go get -u github.com/kevinho/xgo
 ```
