@@ -25,5 +25,5 @@ ex:
 # install
 
 ```go
-go get -u github.com/kevinho/xgo
+go get -u github.com/kevinho/xgo2
 ```
